@@ -147,7 +147,7 @@ function! DerekFugitiveStatusLine()
 endfunction
 
 " Set the status line the way i like it
-" set stl=%f\ %m\ %r%{DerekFugitiveStatusLine()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
+set stl=%f\ %m\ %r%{DerekFugitiveStatusLine()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
 
 " Set up the gui cursor to look nice
 set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
@@ -157,8 +157,13 @@ set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ve
 " Enable syntax highlighting
 syntax enable
 
-colorscheme desert
+set t_Co=16
+" let g:solarized_termcolors=256
+" let g:solarized_termtrans=1
+" let g:solarized_visibility="high"
+" let g:solarized_contrast="high"
 set background=dark
+colorscheme solarized 
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -178,6 +183,9 @@ set ffs=unix,dos,mac
 " compiling 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set makeprg=g++\ -o\ %<\ %
+" for python
+autocmd BufRead *.py set makeprg=python
+autocmd BufRead *.py set efm=\%A\ \ File\ \"%f\"\\,\ line\ %l\\,\ %m,%C\ %m,%Z 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -193,20 +201,20 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
-
-" Be smart when using tabs ;)
+" 
+" " Be smart when using tabs ;)
 set smarttab
-
-" 1 tab == 4 spaces
+" 
+" " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
-
-" Linebreak on 80 characters
+" 
+" " Linebreak on 80 characters
 set lbr
 set tw=80
-
+" 
 set ai "Auto indent
-set si "Smart indent
+" set si "Smart indent
 set wrap "Wrap lines
 
 
@@ -282,7 +290,7 @@ set laststatus=2
 
 " Format the status line
 " set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-set statusline=[%n]\ %<%F\ \ \ [%M%R%H%W%Y][%{&ff}]\ \ %=\ line:%l/%L\ col:%c\ \ \ %p%%\ \ \ @%{strftime(\"%H:%M:%S\")}
+" set statusline=[%n]\ %<%F\ \ \ [%M%R%H%W%Y][%{&ff}]\ \ %=\ line:%l/%L\ col:%c\ \ \ %p%%\ \ \ @%{strftime(\"%H:%M:%S\")}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -422,6 +430,11 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => CtrlP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_cmd = 'CtrlPBuffer'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
